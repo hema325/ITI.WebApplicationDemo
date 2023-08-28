@@ -1,4 +1,5 @@
 using ITI.WebApplication.Data;
+using ITI.WebApplication.Middlewares;
 using ITI.WebApplication.RepositoryPattern.IRepository;
 using ITI.WebApplication.RepositoryPattern.Repository;
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<WelcomingUserMiddleware>();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -25,6 +28,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
+
+app.UseMiddleware<WelcomingUserMiddleware>();
 
 app.UseAuthorization();
 

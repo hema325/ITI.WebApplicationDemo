@@ -16,7 +16,6 @@ namespace ITI.WebApplication.Controllers
             _students = students;
         }
 
-        [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
             return View(await _students.GetAllAsync()) ;
